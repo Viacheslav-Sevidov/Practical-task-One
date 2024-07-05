@@ -1,0 +1,37 @@
+#include <stdio.h>
+
+#define MODULO 12345
+
+int main() 
+{
+    int n;
+    printf("Введіть довжину послідовності n: ");
+    scanf("%d", &n);
+    
+    if (n <= 1 || n >= 10000) 
+    {
+        printf("Довжина n повинна бути в межах від 2 до 9999\n");
+        return 1;
+    }
+    
+    int ends_with_zero = 1; // Послідовності довжиною 1, які закінчуються на 0
+    int ends_with_one = 1;  // Послідовності довжиною 1, які закінчуються на 1
+    int ends_with_two = 0;  // Послідовності довжиною 1, які закінчуються на 2
+    
+    for (int i = 2; i <= n; i++) 
+    {
+        int new_ends_with_zero = (ends_with_zero + ends_with_one + ends_with_two) % MODULO;
+        int new_ends_with_one = ends_with_zero;
+        int new_ends_with_two = ends_with_one;
+        
+        ends_with_zero = new_ends_with_zero;
+        ends_with_one = new_ends_with_one;
+        ends_with_two = new_ends_with_two;
+    }
+    
+    int total_sequences = (ends_with_zero + ends_with_one + ends_with_two) % MODULO;
+    
+    printf("Кількість шуканихххх послідовностей: %d\n", total_sequences);
+    
+    return 0;
+}
